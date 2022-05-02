@@ -383,7 +383,6 @@ li > a:only-child:after {
 /*--/banner --*/
 
 .main-banner {
-    background: url(../images/banner.jpg)no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -394,7 +393,6 @@ li > a:only-child:after {
 }
 
 .main-banner.inner {
-    background: url(../images/banner.jpg)no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -402,6 +400,18 @@ li > a:only-child:after {
     background-size: cover;
     position: relative;
     min-height: 20em;
+}
+
+.bg1 {
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 0;
+    background-image: url("../anime_banner_4.jpg");
+}
+
+.bg2 {
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 0;
+    background-image: url("../anime_banner_2.jpg");
 }
 
 /*-- place holder --*/
@@ -950,6 +960,12 @@ h3.sear-head {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+.row-2 {
+display: flex;
+flex-direction: column;
+}
+
+
 
 .customer-rev ul li {
     list-style: none;
@@ -961,6 +977,10 @@ h3.sear-head {
     margin-right: 4px;
 }
 
+.img-anime-shots {
+    max-width: 250px;
+    height: auto;
+}
 
 /*-- //customer --*/
 

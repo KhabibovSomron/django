@@ -19,7 +19,7 @@ class Category(models.Model):
 
 
 class Character(models.Model):
-    """Персонажи и Авторы"""
+    """Персонажи и Режиссеры"""
     name = models.CharField("Имя", max_length=100)
     age = models.PositiveSmallIntegerField("Возраст", default=0)
     description = models.TextField("Описание")
@@ -29,8 +29,8 @@ class Character(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Персонажи и Авторы"
-        verbose_name_plural = "Персонажи и Авторы"
+        verbose_name = "Персонажи и Режиссеры"
+        verbose_name_plural = "Персонажи и Режиссеры"
 
 
 class Genre(models.Model):
@@ -53,7 +53,7 @@ class Anime(models.Model):
     description = models.TextField("Описание")
     poster = models.ImageField("Постер", upload_to="anime/")
     year = models.PositiveSmallIntegerField("Дата выхода", default=1990)
-    author = models.ManyToManyField(Character, verbose_name="Автор", related_name="anime_author")
+    director = models.ManyToManyField(Character, verbose_name="Режиссер", related_name="anime_director")
     characters = models.ManyToManyField(Character, verbose_name="Персонажи", related_name="anime_characters")
     genres = models.ManyToManyField(Genre, verbose_name="Жанры")
     world_premiere = models.DateField("Примьера в мире", default=date.today)
@@ -103,7 +103,7 @@ class Rating(models.Model):
     """Рейтинг"""
     ip = models.CharField("IP адрес", max_length=15)
     star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
-    anime = models.ForeignKey(Anime, on_delete=models.CharField, verbose_name="аниме")
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, verbose_name="аниме")
 
     def __str__(self):
         return f"{self.star} - {self.anime}"
@@ -119,7 +119,7 @@ class Reviews(models.Model):
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
     parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
-    anime = models.ForeignKey(Anime, verbose_name="аниме", on_delete=models.CASCADE)
+    anime = models.ForeignKey(Anime, verbose_name="Аниме", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name} - {self.anime}"

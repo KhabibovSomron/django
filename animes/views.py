@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from .models import Anime, Genre
+from .models import Anime, Genre, Category
 from .forms import ReviewForm
 
 # Create your views here.

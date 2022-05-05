@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -63,12 +64,16 @@ class Anime(models.Model):
     category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
     url = models.SlugField(max_length=160, unique=True)
     draft = models.BooleanField("Черновик", default=False)
+    trailer = models.CharField("Трайлер", max_length=500, default="")
 
     def __str__(self):
         return self.title
 
     def get_review(self):
         return self.reviews_set.filter(parent__isnull=True)
+
+    def get_absolute_url(self):
+        return reverse("anime_detail", kwargs={"slug": self.url})
 
     class Meta:
         verbose_name = "Аниме"

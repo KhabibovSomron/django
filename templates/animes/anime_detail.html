@@ -1,5 +1,8 @@
 {% extends 'animes/base.html' %}
 {% load static %}
+{% block title %}
+<title>{{ anime.title }}</title>
+{% endblock title%}
 {% block banner %}main-banner inner bg bg2 {% endblock banner %}
 {% block container %}
 <div class="container py-md-3">
@@ -29,7 +32,7 @@
                     </li>
                     <li style="list-style: none"><span><b>Персонажи:</b>
                                     {% for character in anime.characters.all %}
-                                        {{ character.name }}
+                                    <a href="{{ character.get_absolute_url }}">{{ character.name }}</a>
                                     {% endfor %}
                                 </span>
                     </li>

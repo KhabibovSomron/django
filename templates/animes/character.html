@@ -1,0 +1,48 @@
+{% extends 'animes/base.html' %}
+{% load static %}
+{% block title %}
+<title>{{ character.name }}</title>
+{% endblock title %}
+{% block banner %}main-banner inner bg bg2 {% endblock banner %}
+{% block container %}
+<div class="container py-md-3">
+    {% endblock container %}
+    {% block banner_info %}
+    {% endblock banner_info %}
+    {% block anime %}
+    <div class="left-ads-display col-lg-8">
+        <div class="row">
+            <div class="desc1-left col-md-6">
+                <img src="{{ character.image.url }}" class="img-fluid" alt="">
+            </div>
+            <div class="desc1-right col-md-6 pl-lg-4">
+                <h3 class="editContent">
+                    {{ character.name }}
+                </h3>
+                <h5 class="editContent"></h5>
+                <ul>
+                    <li style="list-style: none">
+                        <span><b>Возраст:</b> {{ character.age }}</span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Аниме:</b>
+                            {% for anime in character.anime_characters.all %}
+                                {{ anime.title }}
+                            {% endfor %}
+                        </span>
+        </li>
+                </ul>
+        </div>
+        <div class="row sub-para-w3layouts mt-5">
+
+            <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+                О {{ character.name }}
+            </h3>
+            <p class="editContent" style="outline: none; cursor: inherit;">
+                {{ character.description }}
+            </p>
+        </div>
+        <hr>
+    </div>
+</div>
+    {% endblock anime %}

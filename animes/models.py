@@ -29,6 +29,10 @@ class Character(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("character_datail", kwargs={"slug": self.name})
+    
+
     class Meta:
         verbose_name = "Персонажи и Режиссеры"
         verbose_name_plural = "Персонажи и Режиссеры"

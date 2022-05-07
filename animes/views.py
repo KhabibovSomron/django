@@ -1,12 +1,12 @@
-from re import template
-from statistics import mode
-from django.shortcuts import render, redirect
+from turtle import title
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import  redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 
-from .models import Anime, Character, Genre, Category
-from .forms import ReviewForm
+from .models import Anime, Character, Genre, Category, Rating
+from .forms import ReviewForm, RatingForm
 
 # Create your views here.
 
@@ -29,6 +29,11 @@ class AnimeDetailView(GenreYear, DetailView):
     """Полное описание фильма"""
     model = Anime
     slug_field = "url"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["star_form"] = RatingForm()
+        return context
 
 
 class AddReview(View):
@@ -70,3 +75,37 @@ class FilterAnimeView(GenreYear, ListView):
         else:
             queryset = Anime.objects.all()
         return queryset
+
+
+class AddStarRating(View):
+    """Добавление рейтинга"""
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+
+    def post(self, request):
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            Rating.objects.update_or_create(
+                ip=self.get_client_ip(request),
+                anime_id=int(request.POST.get("anime")),
+                defaults={'star_id': int(request.POST.get("star"))}
+            )
+            return HttpResponse(status=201)
+        else:
+            return HttpResponse(status=400)
+
+class Search(GenreYear, ListView):
+    """Поиск аниме"""
+    template_name = "animes/animes.html"
+    def get_queryset(self):
+        return Anime.objects.filter(title__icontains=self.request.GET.get("q"))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["q"] = self.request.GET.get("q")
+        return context

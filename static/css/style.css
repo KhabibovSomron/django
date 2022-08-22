@@ -1528,22 +1528,22 @@ a.move-top span {
     }
 }
 
-@media(max-width:568px) {
-    .banner-info h3 {
-        font-size: 2em !important;
-        letter-spacing: 2px;
-    }
+    @media(max-width:568px) {
+        .banner-info h3 {
+            font-size: 2em !important;
+            letter-spacing: 2px;
+        }
 
-    .banner-info p {
-        font-size: 0.7em !important;
-        letter-spacing: 2px;
-    }
+        .banner-info p {
+            font-size: 0.7em !important;
+            letter-spacing: 2px;
+        }
 
-    .sub-para-w3layouts {
-        margin: 0;
-    }
+        .sub-para-w3layouts {
+            margin: 0;
+        }
 
-}
+    }
 
 @media(max-width:480px) {
     .main-banner {
